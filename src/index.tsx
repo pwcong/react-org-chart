@@ -1,7 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 
 import classnames from 'classnames';
-import { ITree, ITreeNode, ITreeNodes } from './types';
+import { ITree, IGetTree } from './types';
+
+import { defaultOptions } from './config';
+import { init } from './chart';
 
 import './style.scss';
 
@@ -10,19 +13,25 @@ export interface IProps {
   height?: number;
   style?: React.CSSProperties;
   data: ITree;
-  getChildren?: (node: ITreeNode) => Promise<ITreeNodes>;
+  getChildren?: IGetTree;
 }
 
 const cls = 'react-org-chart';
 
 const ReactOrgChart: React.FunctionComponent<IProps> = (props) => {
-  const { className, style, height = 400 } = props;
+  const { className, style, height = 400, data, getChildren } = props;
 
   const ref = useRef<any>();
   const svgRef = useRef<any>();
 
   useEffect(() => {
-    // TODO 初始化
+    init(
+      svgRef.current,
+      data,
+      Object.assign({}, defaultOptions, {
+        getTree: getChildren
+      })
+    );
   }, []);
 
   return (

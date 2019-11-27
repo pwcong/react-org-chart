@@ -12,3 +12,14 @@ export interface ITreeNode {
 export type ITreeNodes = Array<ITreeNode>;
 
 export type ITree = ITreeNode;
+
+export type IGetTree = (node: ITreeNode) => Promise<ITreeNodes>;
+
+export interface IOptions {
+  nodeSpacing: number
+  nodeWidth: number
+  nodeHeight: number
+  borderColor: string
+  borderRadius: number
+  getTree: IGetTree;
+}
