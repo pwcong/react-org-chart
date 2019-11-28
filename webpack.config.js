@@ -3,13 +3,13 @@ const webpack = require('webpack');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const pkg = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production';
 const distPath = path.resolve(__dirname, 'lib');
 
 const commonCssLoaders = [
-  isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+  'style-loader',
   'css-loader',
   {
     loader: 'postcss-loader',
@@ -26,9 +26,9 @@ module.exports = {
     path: distPath,
     libraryTarget: 'umd',
     library: 'ReactOrgChart',
-    filename: 'react-org-chart.min.js'
+    filename: `${pkg.name}.min.js`
   },
-  externals: isProd ? [ 'react', 'react-dom' ] : [],
+  externals: isProd ? [ 'react', 'react-dom', 'd3' ] : [],
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
@@ -55,17 +55,6 @@ module.exports = {
     },
     extensions: [ '.js', '.ts', '.tsx' ]
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
-  },
   devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
@@ -82,9 +71,6 @@ module.exports = {
           new HTMLWebpackPlugin({
             title: 'React Org Chart',
             template: 'example/index.ejs'
-          }),
-          new MiniCssExtractPlugin({
-            allChunks: true
           }),
           new webpack.HotModuleReplacementPlugin()
         ]

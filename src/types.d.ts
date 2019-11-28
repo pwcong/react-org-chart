@@ -1,12 +1,21 @@
 export interface ITreeNode {
-  key: string;
+  id: string;
   name: string;
   leaders?: Array<{
     name: string;
     avatar: string;
   }>;
-  elementCount?: number;
+  members?: Array<{
+    name: string;
+    avatar: string;
+  }>;
   children?: ITreeNodes;
+  _children?: ITreeNodes;
+  depth?: number;
+  x0?: number;
+  y0?: number;
+  x?: number;
+  y?: number;
 }
 
 export type ITreeNodes = Array<ITreeNode>;
@@ -16,10 +25,23 @@ export type ITree = ITreeNode;
 export type IGetTree = (node: ITreeNode) => Promise<ITreeNodes>;
 
 export interface IOptions {
-  nodeSpacing: number
-  nodeWidth: number
-  nodeHeight: number
-  borderColor: string
-  borderRadius: number
+  animationDuration: number;
+  nodeSpacing: number;
+  backgroundColor: string;
+  nodeWidth: number;
+  nodeHeight: number;
+  borderColor: string;
+  borderRadius: number;
+  lineHeight: number;
+  lineOffsetY: number;
+  lineColor: string;
   getTree: IGetTree;
+}
+
+export interface IRenderData {
+  sourceNode?: any;
+  tree: any;
+  treeData: ITree;
+  nodes?: Array<any>;
+  links?: Array<any>;
 }
