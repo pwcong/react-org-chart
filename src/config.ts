@@ -17,4 +17,6 @@ export const defaultOptions: IOptions = {
 export const baseCls = 'react-org-chart';
 export const nodeCls = baseCls + '-node';
 export const nodeNameCls = baseCls + '-name';
+export const nodeLeadersCls = baseCls + '-leaders';
+export const nodeMembersCls = baseCls + '-members';
 export const nodeLinkCls = baseCls + '-link';

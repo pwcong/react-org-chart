@@ -14,7 +14,7 @@ ReactDOM.render(
       leaders: [
         {
           name: '彭伟聪',
-          avatar: ''
+          avatar: 'https://avatars2.githubusercontent.com/u/13917544?s=460&v=4'
         }
       ],
       members: Array.from(Array(10)).map(() => ({
