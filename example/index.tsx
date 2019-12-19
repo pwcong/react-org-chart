@@ -18,9 +18,10 @@ ReactDOM.render(
         }
       ],
       members: Array.from(Array(10)).map(() => ({
-        name: '名称',
+        name: '人员',
         avatar: ''
-      }))
+      })),
+      hasChildren: true
     }}
     getChildren={(node) =>
       new Promise((resolve) => {
@@ -28,7 +29,8 @@ ReactDOM.render(
         resolve(
           Array.from(Array(3)).map((_, i) => ({
             id: `sub-${counter}-${i}`,
-            name: '子部门'
+            name: '子部门',
+            hasChildren: true
           }))
         );
       })}

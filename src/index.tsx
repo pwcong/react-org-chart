@@ -32,7 +32,13 @@ export function buildReactOrgChart(options: IOptions) {
 
     return (
       <div className={classnames(baseCls, className)} style={style}>
-        <svg ref={ref} width="100%" height={height} />
+        <svg 
+          xmlnsXlink="http://www.w3.org/1999/xlink" 
+          xmlns='http://www.w3.org/2000/svg' 
+          ref={ref} 
+          width="100%" 
+          height={height} 
+        />
       </div>
     );
   };

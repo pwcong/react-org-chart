@@ -5,12 +5,12 @@
   "main": "./lib/react-org-chart.min.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
-    "build": "cross-env NODE_ENV=production webpack --progress",
+    "build": "npm run build:lib & npm run build:docs",
+    "build:lib": "cross-env NODE_ENV=production webpack --progress",
+    "build:docs": "cross-env NODE_ENV=production TARGET=docs webpack --progress",
     "lint": "eslint src --ext .ts,.tsx --fix"
   },
-  "keywords": [
-    "react-org-chart"
-  ],
+  "keywords": [ "react-org-chart" ],
   "author": "Pwcong <pwcong@foxmail.com>",
   "license": "MIT",
   "dependencies": {

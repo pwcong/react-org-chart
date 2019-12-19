@@ -250,7 +250,7 @@ export default function render(
     .append('circle')
     .attr(
       'display',
-      (d) => (d._children && d._children.length <= 0 ? 'none' : 'inherit')
+      (d) => (d.hasChildren ? 'inherit' : 'none')
     )
     .attr('cx', 0)
     .attr('cy', 0)

@@ -6,7 +6,11 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const pkg = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production';
-const distPath = path.resolve(__dirname, 'lib');
+const isDocs = process.env.TARGET === 'docs';
+
+const distPath = !isDocs
+  ? path.resolve(__dirname, 'lib')
+  : path.resolve(__dirname, 'docs');
 
 const commonCssLoaders = [
   'style-loader',
@@ -21,14 +25,18 @@ const commonCssLoaders = [
 
 module.exports = {
   mode: isProd ? 'production' : 'development',
-  entry: isProd ? './src/index.tsx' : './example/index.tsx',
+  entry: isProd && !isDocs ? './src/index.tsx' : './example/index.tsx',
   output: {
     path: distPath,
-    libraryTarget: 'umd',
-    library: 'ReactOrgChart',
-    filename: `${pkg.name}.min.js`
+    ...(!isDocs ? {
+      libraryTarget: 'umd',
+      library: 'ReactOrgChart',
+      filename: `${pkg.name}.min.js`
+    } : {
+      filename: `bundle.min.js`
+    })
   },
-  externals: isProd ? [ 'react', 'react-dom', 'd3' ] : [],
+  externals: (isProd && !isDocs) ? [ 'react', 'react-dom', 'd3' ] : [],
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
@@ -65,7 +73,7 @@ module.exports = {
     hot: true
   },
   plugins: [ new CleanWebpackPlugin() ].concat(
-    isProd
+    isProd && !isDocs
       ? []
       : [
           new HTMLWebpackPlugin({

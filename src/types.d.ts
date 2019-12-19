@@ -9,6 +9,7 @@ export interface ITreeNode {
     name: string;
     avatar: string;
   }>;
+  hasChildren?: boolean
   children?: ITreeNodes;
   _children?: ITreeNodes;
   depth?: number;
